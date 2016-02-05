@@ -87,12 +87,15 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_WIN32_WINNT=0x0501;BOOST_ALL_DYN_LINK</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>D:\Program Files\boost_1_59_0;D:\GitHub\Msgpack\msgpack-c\include;msgpackRpc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:/Program Files/boost_1_59_0/lib32-msvc-14.0;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -117,14 +120,16 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_WIN32_WINNT=0x0501;BOOST_ALL_DYN_LINK</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>D:\Program Files\boost_1_59_0;D:\GitHub\Msgpack\msgpack-c\include;msgpackRpc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>D:/Program Files/boost_1_59_0/lib32-msvc-14.0;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -147,9 +152,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+    <Text Include="settings.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BufferManager.cpp" />
+    <ClCompile Include="Dispatcher.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="RpcServer.cpp" />
+    <ClCompile Include="SessionManager.cpp" />
+    <ClCompile Include="TcpServer.cpp" />
+    <ClCompile Include="TcpSession.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BufferManager.h" />
+    <ClInclude Include="Dispatcher.h" />
+    <ClInclude Include="Exception.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="Protocol.h" />
+    <ClInclude Include="SessionManager.h" />
+    <ClInclude Include="TcpServer.h" />
+    <ClInclude Include="TcpSession.h" />
+    <ClInclude Include="TupleUtil.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
