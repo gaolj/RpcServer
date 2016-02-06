@@ -19,6 +19,17 @@
 #include "TupleUtil.h"
 #include "Protocol.h"			// MsgResponse
 
+#define MSGPACK_CONVERT(obj, arg)\
+	try{obj.convert(&arg);}\
+	catch (msgpack::type_error& ex)\
+	{\
+		BOOST_THROW_EXCEPTION(boost::enable_error_info(ex) <<\
+			err_no(error_params_convert) <<\
+			err_str(std::string("error_params_convert:") + typeid(arg).name()));\
+	}
+
+std::string getBoostExceptionThrowLocation(const boost::exception& ex);
+
 class TcpSession;
 std::shared_ptr<TcpSession> getCurrentTcpSession();
 void setCurrentTcpSession(std::shared_ptr<TcpSession> pSession);
@@ -58,19 +69,8 @@ helpInvoke(F handler, uint32_t msgid, msgpack::object objArgs)
 	else if (objArgs.via.array.size < std::tuple_size<TArgs>::value)
 		BOOST_THROW_EXCEPTION(ArgsCheckException() << err_no(error_params_not_enough) << err_str("error_params_not_enough"));
 
-	// args extract
 	TArgs args;
-    try
-	{
-        objArgs.convert(&args);
-    }
-    catch(msgpack::type_error& ex)
-	{
-		int i = objArgs.via.array.ptr->type;
-		BOOST_THROW_EXCEPTION(boost::enable_error_info(ex) <<
-			err_no(error_params_convert) <<
-			err_str(std::string("error_params_convert:") + typeid(TArgs).name()));
-	}
+	MSGPACK_CONVERT(objArgs, args);
 
     // call
     R result=std::call_with_tuple(handler, args);
@@ -102,14 +102,7 @@ helpInvoke(F handler, uint32_t msgid, msgpack::object objArgs)
 
     // args extract
     TArgs args;
-    try
-	{
-        objArgs.convert(&args);
-    }
-    catch(msgpack::type_error&)
-	{
-        throw msgerror("fail to convert args", error_params_convert);
-    }
+	MSGPACK_CONVERT(objArgs, args);
 
     // call
     std::call_with_tuple_void(handler, args);
@@ -134,8 +127,6 @@ public:
 	Dispatcher() {}
 
 	~Dispatcher() {}
-
-	std::shared_ptr<msgpack::sbuffer> processCall(uint32_t msgid, msgpack::object method, msgpack::object args);
 
 	void dispatch(const msgpack::object &objMsg, msgpack::zone&& zone, std::shared_ptr<TcpSession> session);
 

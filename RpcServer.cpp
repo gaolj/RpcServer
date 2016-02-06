@@ -20,16 +20,18 @@ int twowayAdd(int a, int b)
 			try
 			{
 				int i = fut.get().first.as<int>();
-
-				//BOOST_CHECK_EQUAL(i, a + b);	// 多线程下BOOST_CHECK_EQUAL的实现可能会出异常
 				if (i != a + b)
 					BOOST_LOG_SEV(session->_logger, fatal) << "-->" << a << " + " << b << " != " << i;
 				else
 					BOOST_LOG_SEV(session->_logger, debug) << "-->" << a << " + " << b << " == " << i;
 			}
-			catch (const boost::exception& e)
+			catch (const boost::exception& ex)
 			{
-				BOOST_LOG_SEV(session->_logger, error) << diagnostic_information(e);
+				auto no = boost::get_error_info<err_no>(ex);
+				auto str = boost::get_error_info<err_str>(ex);
+				auto loc = getBoostExceptionThrowLocation(ex);
+				BOOST_LOG_FUNCTION();
+				BOOST_LOG_SEV(session->_logger, error) << (str ? *str : "") << "		" << loc;
 			}
 			catch (const std::exception& e)
 			{

@@ -52,6 +52,9 @@ public:
 	boost::asio::ip::tcp::socket& getSocket();
 	void setDispatcher(std::shared_ptr<Dispatcher> disp);
 
+	void errorNotify(const std::string& msg);	// Ã»ÓÐrequest msgid
+	void errorRespond(int msgid, int errcode, const std::string& what);	// ÓÐrequest msgid
+
 	// Async call
 	template<typename... TArgs>
 	boost::shared_future<ObjectZone> call(const std::string& method, TArgs... args);
@@ -59,10 +62,8 @@ public:
 	template<typename... TArgs>
 	void call(RpcCallback&& callback, const std::string& method, TArgs... args);
 private:
-	template<typename T>
-	void convertObject(msgpack::object& objMsg, T& t);
 	void handleNetError(const boost::system::error_code& ec, std::string scope);
-	void exceptionNotify(const std::string& msg);
+
 	void processMsg(msgpack::unpacked upk);
 
 	boost::asio::ip::tcp::socket _socket;
@@ -85,23 +86,6 @@ typedef std::shared_ptr<TcpSession> SessionPtr;
 inline boost::asio::ip::tcp::socket& TcpSession::getSocket()
 {
 	return _socket;
-}
-
-template<typename T>
-inline void TcpSession::convertObject(msgpack::object& objMsg, T& t)
-{
-	try
-	{
-		objMsg.convert(&t);
-	}
-	catch (msgpack::type_error& ex)
-	{
-		auto fmt = boost::format("convert to %s: %s") % typeid(T).name() % ex.what();
-		BOOST_THROW_EXCEPTION(
-			ObjectConvertException() <<
-			err_no(error_convert_to_MsgRpc) <<
-			err_str(fmt.str()));
-	}
 }
 
 template<typename... TArgs>
