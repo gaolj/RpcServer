@@ -62,7 +62,7 @@ public:
 	template<typename... TArgs>
 	void call(RpcCallback&& callback, const std::string& method, TArgs... args);
 private:
-	void handleNetError(const boost::system::error_code& ec, std::string scope);
+	void handleNetError(const boost::system::error_code& ec);
 
 	void processMsg(msgpack::unpacked upk);
 
@@ -91,6 +91,7 @@ inline boost::asio::ip::tcp::socket& TcpSession::getSocket()
 template<typename... TArgs>
 inline boost::shared_future<ObjectZone> TcpSession::call(const std::string& method, TArgs... args)
 {
+	LOG_DEBUG(_logger) << "->" << method;
 	auto msgreq = MsgRequest<std::string, std::tuple<TArgs...>>(method, std::tuple<TArgs...>(args...), _reqNextMsgid++);
 
 	auto sbuf = std::make_shared<msgpack::sbuffer>();
@@ -107,6 +108,7 @@ inline boost::shared_future<ObjectZone> TcpSession::call(const std::string& meth
 template<typename... TArgs>
 inline void TcpSession::call(RpcCallback&& callback, const std::string& method, TArgs... args)
 {
+	LOG_DEBUG(_logger) << "->" << method;
 	auto msgreq = MsgRequest<std::string, std::tuple<TArgs...>>(method, std::tuple<TArgs...>(args...), _reqNextMsgid++);
 
 	auto sbuf = std::make_shared<msgpack::sbuffer>();

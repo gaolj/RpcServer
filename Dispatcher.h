@@ -57,11 +57,11 @@ public:
 
 };
 
+// return R
 template<typename F, typename R, typename C, typename TArgs>
 std::shared_ptr<msgpack::sbuffer>
 helpInvoke(F handler, uint32_t msgid, msgpack::object objArgs)
 {
-	BOOST_LOG_NAMED_SCOPE("helpInvoke_R1");
 	if (objArgs.type != msgpack::type::ARRAY)
 		BOOST_THROW_EXCEPTION(ArgsCheckException() << err_no(error_params_not_array) << err_str("error_params_not_array"));
 	if (objArgs.via.array.size > std::tuple_size<TArgs>::value)
@@ -83,24 +83,18 @@ helpInvoke(F handler, uint32_t msgid, msgpack::object objArgs)
     return sbuf;
 }
 
-// void
+// return void
 template<typename F, typename C, typename TArgs>
 std::shared_ptr<msgpack::sbuffer>
 helpInvoke(F handler, uint32_t msgid, msgpack::object objArgs)
 {
-	BOOST_LOG_NAMED_SCOPE("helpInvoke_R0");
-	// args check
-    if(objArgs.type != msgpack::type::ARRAY) {
-        throw msgerror("error_params_not_array", error_params_not_array); 
-    }
-    if(objArgs.via.array.size > std::tuple_size<TArgs>::value){
-        throw msgerror("error_params_too_many", error_params_too_many); 
-    }
-    else if(objArgs.via.array.size < std::tuple_size<TArgs>::value){
-		throw boost::enable_error_info(msgerror("error_params_not_enough", error_params_not_enough));
-    }
+    if(objArgs.type != msgpack::type::ARRAY)
+		BOOST_THROW_EXCEPTION(ArgsCheckException() << err_no(error_params_not_array) << err_str("error_params_not_array"));
+    if(objArgs.via.array.size > std::tuple_size<TArgs>::value)
+		BOOST_THROW_EXCEPTION(ArgsCheckException() << err_no(error_params_too_many) << err_str("error_params_too_many"));
+	else if(objArgs.via.array.size < std::tuple_size<TArgs>::value)
+		BOOST_THROW_EXCEPTION(ArgsCheckException() << err_no(error_params_not_enough) << err_str("error_params_not_enough"));
 
-    // args extract
     TArgs args;
 	MSGPACK_CONVERT(objArgs, args);
 
@@ -122,7 +116,6 @@ class Dispatcher
     std::map<std::string, Procedure> m_handlerMap;
 
 	src::severity_channel_logger<SeverityLevel> _logger{ keywords::channel = "Dispatcher" };
-	//logging::attribute_set::iterator _net_remote_addr;
 public:
 	Dispatcher() {}
 

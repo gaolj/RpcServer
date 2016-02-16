@@ -17,11 +17,12 @@ std::string getBoostExceptionThrowLocation(const boost::exception& ex)
 {
 	std::ostringstream os;
 	auto file = boost::get_error_info<boost::throw_file>(ex);
-	auto line = boost::get_error_info<boost::throw_line>(ex);	//char const * const * fn = boost::get_error_info<boost::throw_function>(ex);
+	auto line = boost::get_error_info<boost::throw_line>(ex);
+	//auto func = boost::get_error_info<boost::throw_function>(ex);
 	if (file && line)
 	{
 		std::string tmp = *file;
-		os << tmp.substr(tmp.rfind('\\') + 1) << ':' << *line;
+		os << "		throw@" << tmp.substr(tmp.rfind('\\') + 1) << ':' << *line;
 	}
 	return os.str();
 }
@@ -31,6 +32,7 @@ void Dispatcher::dispatch(const msgpack::object &objMsg, msgpack::zone&& zone, s
 	BOOST_LOG_FUNCTION();
 	FuncTracer tracer;
 
+	BOOST_LOG_SCOPED_THREAD_ATTR("Uptime", attrs::timer());
 	setCurrentTcpSession(session);
 	MsgRequest<std::string, msgpack::object> req;
 	MSGPACK_CONVERT(objMsg, req);
@@ -40,8 +42,8 @@ void Dispatcher::dispatch(const msgpack::object &objMsg, msgpack::zone&& zone, s
 		auto found = m_handlerMap.find(req.method);
 		if (found != m_handlerMap.end())
 		{
-			BOOST_LOG_SEV(_logger, debug) << logging::add_value("RemoteAddress", session->_peerAddr) << "rpc:" << req.method;
 			session->asyncWrite(found->second(req.msgid, req.param));
+			LOG_DEBUG(_logger) << logging::add_value("RemoteAddress", session->_peerAddr) << "<-" << req.method << ":OK";
 		}
 		else
 			BOOST_THROW_EXCEPTION(FunctionNotFoundException() <<
@@ -55,22 +57,16 @@ void Dispatcher::dispatch(const msgpack::object &objMsg, msgpack::zone&& zone, s
 		session->errorRespond(req.msgid, no ? *no : 0, str ? *str : "");
 
 		auto loc = getBoostExceptionThrowLocation(ex);
-		BOOST_LOG_NAMED_SCOPE("catch");
-		BOOST_LOG_SEV(_logger, error) << logging::add_value("RemoteAddress", session->_peerAddr) <<
-			(str ? *str : "") << "		" << loc;
+		LOG_ERROR(_logger) << logging::add_value("RemoteAddress", session->_peerAddr) << (str ? *str : "") << loc;
 	}
 	catch (std::exception& ex)
 	{
 		session->errorRespond(req.msgid, 0, ex.what());
-
-		BOOST_LOG_NAMED_SCOPE("catch");
-		BOOST_LOG_SEV(_logger, error) << logging::add_value("RemoteAddress", session->_peerAddr) << ex.what();
+		LOG_ERROR(_logger) << logging::add_value("RemoteAddress", session->_peerAddr) << ex.what();
 	}
 	catch (...)
 	{
 		session->errorRespond(req.msgid, 0, "unknown exception");
-
-		BOOST_LOG_NAMED_SCOPE("catch");
-		BOOST_LOG_SEV(_logger, error) << logging::add_value("RemoteAddress", session->_peerAddr) << "unknown exception";
+		LOG_ERROR(_logger) << logging::add_value("RemoteAddress", session->_peerAddr) << "unknown exception";
 	}
 }

@@ -10,8 +10,9 @@ BOOST_LOG_INLINE_GLOBAL_LOGGER_DEFAULT(glogger, src::severity_logger_mt<Severity
 
 int twowayAdd(int a, int b)
 {
+	BOOST_LOG_FUNCTION();
 	auto session = getCurrentTcpSession();
-	BOOST_LOG_SEV(session->_logger, debug) << "<--" << a << " + " << b;
+	LOG_DEBUG(session->_logger) << "<-twowayAdd:" << a << " + " << b;
 
 	if (session)
 	{
@@ -21,25 +22,24 @@ int twowayAdd(int a, int b)
 			{
 				int i = fut.get().first.as<int>();
 				if (i != a + b)
-					BOOST_LOG_SEV(session->_logger, fatal) << "-->" << a << " + " << b << " != " << i;
+					LOG_FATAL(session->_logger) << "->add:" << a << " + " << b << " != " << i;
 				else
-					BOOST_LOG_SEV(session->_logger, debug) << "-->" << a << " + " << b << " == " << i;
+					LOG_DEBUG(session->_logger) << "->add:" << a << " + " << b << " == " << i;
 			}
 			catch (const boost::exception& ex)
 			{
 				auto no = boost::get_error_info<err_no>(ex);
 				auto str = boost::get_error_info<err_str>(ex);
 				auto loc = getBoostExceptionThrowLocation(ex);
-				BOOST_LOG_FUNCTION();
-				BOOST_LOG_SEV(session->_logger, error) << (str ? *str : "") << "		" << loc;
+				LOG_ERROR(session->_logger) << (str ? *str : "") << loc;
 			}
 			catch (const std::exception& e)
 			{
-				BOOST_LOG_SEV(session->_logger, error) << e.what();
+				LOG_ERROR(session->_logger) << e.what();
 			}
 			catch (...)
 			{
-				BOOST_LOG_SEV(session->_logger, error) << "twowayAdd未知异常";
+				LOG_ERROR(session->_logger) << "twowayAdd未知异常";
 			}
 		};
 		session->call(on_result, "add", a, b);
@@ -72,7 +72,7 @@ BOOST_AUTO_TEST_CASE(begin)
 	initLogger();
 
 	src::severity_logger<SeverityLevel> slg;
-	BOOST_LOG_SEV(slg, info) << "start server";
+	LOG_INFO(slg) << "Start server";
 
 	TcpServer server(8070);
 	std::shared_ptr<Dispatcher> dispatcher = std::make_shared<Dispatcher>();
