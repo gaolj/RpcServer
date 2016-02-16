@@ -1,7 +1,0 @@
-[Core]
-Filter="%Severity% >= 1"
-
-[Sinks.1]
-Destination=Console 
-Format="%TimeStamp% *** %Message%"
-

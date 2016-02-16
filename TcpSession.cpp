@@ -3,6 +3,7 @@
 #include "SessionManager.h"		// SessionManager
 #include <boost/asio.hpp>
 #include <boost/format.hpp>		// boost::format
+#include "mstcpip.h"			// struct tcp_keepalive
 
 using std::string;
 using boost::asio::ip::tcp;
@@ -21,6 +22,17 @@ TcpSession::~TcpSession()
 
 void TcpSession::start()
 {
+	// set keepalive
+	DWORD dwBytesRet = 0;
+	SOCKET sock = _socket.native_handle();
+	struct tcp_keepalive alive;
+	alive.onoff = TRUE;
+	alive.keepalivetime = 5 * 1000;
+	alive.keepaliveinterval = 3000;
+
+	if (WSAIoctl(sock, SIO_KEEPALIVE_VALS, &alive, sizeof(alive), NULL, 0, &dwBytesRet, NULL, NULL) == SOCKET_ERROR)
+		LOG_ERROR(_logger) << "WSAIotcl(SIO_KEEPALIVE_VALS) failed:" << WSAGetLastError();
+
 	readHead();
 }
 

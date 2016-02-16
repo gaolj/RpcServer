@@ -152,7 +152,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="settings.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BufferManager.cpp" />
@@ -173,6 +172,9 @@
     <ClInclude Include="TcpServer.h" />
     <ClInclude Include="TcpSession.h" />
     <ClInclude Include="TupleUtil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="log.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

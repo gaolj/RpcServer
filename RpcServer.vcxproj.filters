@@ -16,7 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
-    <Text Include="settings.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RpcServer.cpp">
@@ -69,5 +68,8 @@
     <ClInclude Include="TupleUtil.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="log.ini" />
   </ItemGroup>
 </Project>
