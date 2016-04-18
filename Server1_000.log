@@ -1,0 +1,83 @@
+2016-04-18 14:26:07.962057	0x00002570	INFO 	Start server			
+2016-04-18 14:26:10.989230	0x000027a4	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:10.991230	0x00002634	NTFY 	End of file			handle readHead
+2016-04-18 14:26:10.991230	0x00002714	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:10.992230	0x00002634	NTFY 	End of file			handle readHead
+2016-04-18 14:26:11.996288	0x00002714	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:11.997288	0x00002714	NTFY 	End of file			handle readHead
+2016-04-18 14:26:11.998288	0x00002634	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:12.002288	0x00002634	NTFY 	End of file			handle readHead
+2016-04-18 14:26:12.007288	0x00002634	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:12.009289	0x000027a4	DEBUG	<-add:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.010289	0x00002714	DEBUG	<-add:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.013289	0x00002634	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:12.015289	0x000027a4	DEBUG	<-add:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.015289	0x00002634	NTFY 	End of file			handle readHead
+2016-04-18 14:26:12.016289	0x00002714	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:12.018289	0x000027a4	DEBUG	<-add:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.018289	0x00002714	NTFY 	End of file			handle readHead
+2016-04-18 14:26:12.021289	0x00002714	NTFY 	End of file			handle readHead
+2016-04-18 14:26:12.024289	0x00002714	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:12.025289	0x00002634	DEBUG	<-add:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.025289	0x000027a4	DEBUG	<-add:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.124295	0x00002634	NTFY 	End of file			handle readHead
+2016-04-18 14:26:12.131296	0x00002714	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:12.132296	0x00002634	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:12.132296	0x000027a4	DEBUG	<-add:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.134296	0x00002714	DEBUG	<-add:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.232301	0x00002714	NTFY 	End of file			handle readHead
+2016-04-18 14:26:12.232301	0x000027a4	NTFY 	End of file			handle readHead
+2016-04-18 14:26:12.242302	0x00002634	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:12.243302	0x000027a4	DEBUG	<-twowayAdd:0 + 0			twowayAdd<-Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.243302	0x00002714	DEBUG	<-twowayAdd:1 + 1			twowayAdd<-Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.246302	0x00002714	DEBUG	->add			twowayAdd<-Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.245302	0x000027a4	DEBUG	->add			twowayAdd<-Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.247302	0x000027a4	DEBUG	<-twowayAdd:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.248302	0x00002634	DEBUG	->add:0 + 0 == 0			handle readBody
+2016-04-18 14:26:12.249302	0x00002714	DEBUG	<-twowayAdd:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.249302	0x00002634	DEBUG	->add:1 + 1 == 2			handle readBody
+2016-04-18 14:26:12.342308	0x00002634	NTFY 	End of file			handle readHead
+2016-04-18 14:26:12.348308	0x00002634	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:12.349308	0x000027a4	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:12.349308	0x00002714	DEBUG	<-twowayAdd:0 + 0			twowayAdd<-Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.351308	0x00002714	DEBUG	->add			twowayAdd<-Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.352308	0x00002634	DEBUG	<-twowayAdd:1 + 1			twowayAdd<-Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.353308	0x00002634	DEBUG	->add			twowayAdd<-Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.355308	0x000027a4	DEBUG	->add:0 + 0 == 0			handle readBody
+2016-04-18 14:26:12.354308	0x00002714	DEBUG	<-twowayAdd:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.356308	0x00002634	DEBUG	<-twowayAdd:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:12.356308	0x000027a4	DEBUG	->add:1 + 1 == 2			handle readBody
+2016-04-18 14:26:12.450314	0x000027a4	NTFY 	End of file			handle readHead
+2016-04-18 14:26:12.450314	0x00002634	NTFY 	End of file			handle readHead
+2016-04-18 14:26:13.475372	0x000027a4	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:13.478373	0x00002714	ERROR	error_no_function:no_function		throw@dispatcher.cpp:51			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.484373	0x000027a4	ERROR	error_params_too_many		throw@dispatcher.h:68			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.489373	0x00002714	ERROR	error_params_not_enough		throw@dispatcher.h:70			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.493373	0x000027a4	ERROR	error_params_convert:class std::tuple<int,int>		throw@dispatcher.h:73			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.497374	0x000027a4	NTFY 	End of file			handle readHead
+2016-04-18 14:26:13.499374	0x000027a4	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:13.500374	0x00002714	DEBUG	<-add:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.501374	0x00002634	DEBUG	<-add:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.501374	0x00002714	NTFY 	End of file			handle readHead
+2016-04-18 14:26:13.514375	0x000027a4	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:13.515375	0x00002634	DEBUG	<-setUuid:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.516375	0x00002714	DEBUG	<-getUuid:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.516375	0x000027a4	DEBUG	<-setUuid:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.517375	0x00002634	DEBUG	<-getUuid:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.519375	0x000027a4	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:13.519375	0x00002714	DEBUG	<-setUuid:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.520375	0x00002634	DEBUG	<-getUuid:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.520375	0x000027a4	NTFY 	End of file			handle readHead
+2016-04-18 14:26:13.521375	0x00002714	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:13.522375	0x000027a4	DEBUG	<-setUuid:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.522375	0x00002634	DEBUG	<-getUuid:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.522375	0x00002714	NTFY 	End of file			handle readHead
+2016-04-18 14:26:13.524375	0x00002634	NTFY 	End of file			handle readHead
+2016-04-18 14:26:13.531376	0x00002714	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:13.532376	0x00002634	DEBUG	Accepted			handleAccept
+2016-04-18 14:26:13.532376	0x000027a4	DEBUG	<-setUuid:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.533376	0x00002714	DEBUG	<-setUuid:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.533376	0x00002634	DEBUG	<-getUuid:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.534376	0x000027a4	NTFY 	End of file			handle readHead
+2016-04-18 14:26:13.534376	0x000027a4	DEBUG	<-getUuid:OK			Dispatcher::dispatch<-handle readBody
+2016-04-18 14:26:13.535376	0x00002634	NTFY 	End of file			handle readHead
